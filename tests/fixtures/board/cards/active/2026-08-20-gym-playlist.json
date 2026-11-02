@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "id": "2026-08-20-gym-playlist",
+  "no": 3,
+  "short_title": "歌单",
+  "title": "健身房歌单",
+  "conclusion": null,
+  "kind": "fitness",
+  "source": "own_use",
+  "tier": "shelved",
+  "tier_since": "2026-09-01T10:00:00+08:00",
+  "tier_decided_by": "agent",
+  "stage": "topic",
+  "stage_since": "2026-09-01T10:00:00+08:00",
+  "last_touched": "2026-09-01T10:00:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": null,
+  "deadline": null,
+  "shelved_reason": "素材不够，等换季",
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pending",
+    "note": null,
+    "decided_by": null
+  },
+  "publications": [],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

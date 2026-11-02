@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "week": "2026-45",
+  "status": "final",
+  "cards": [
+    "2026-11-02-sample-topic"
+  ],
+  "best": {
+    "card": "2026-11-02-sample-topic",
+    "why": "收藏率比平时高"
+  },
+  "worst": {
+    "card": "2026-11-02-sample-topic",
+    "why": "本周只有一条"
+  },
+  "patterns": [
+    {
+      "text": "开头 3 秒给结论的那条 2s 跳出 38%，比平时低 6 个点",
+      "cards": [
+        "2026-11-02-sample-topic"
+      ]
+    }
+  ],
+  "next_week": ["开头 3 秒内先给结论"],
+  "archived": [
+    {
+      "card": "2026-10-01-old-idea",
+      "reason": "idea_30d"
+    }
+  ],
+  "updated_at": "2026-11-08T20:00:00+08:00",
+  "written_by": "agent"
+}

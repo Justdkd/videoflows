@@ -1,0 +1,15 @@
+{
+  "schema_version": 2,
+  "week": "2026-W45",
+  "status": "draft",
+  "cards": [
+    "2026-10-20-ai-weekly-report"
+  ],
+  "best": null,
+  "worst": null,
+  "patterns": [],
+  "next_week": [],
+  "archived": [],
+  "updated_at": "2026-11-08T20:00:00+08:00",
+  "written_by": "test-agent"
+}

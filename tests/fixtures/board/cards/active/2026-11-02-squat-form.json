@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "id": "2026-11-02-squat-form",
+  "no": 7,
+  "short_title": "深蹲",
+  "title": "深蹲膝盖内扣怎么改",
+  "conclusion": "先练臀中肌再加重量",
+  "kind": "fitness",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-11-02T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "sample_gate",
+  "stage_since": "2026-11-08T08:00:00+08:00",
+  "last_touched": "2026-11-08T08:00:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": {
+    "question": "结尾要不要露脸",
+    "context": "样片其他都过了，只差这一处。",
+    "options": [
+      "露脸",
+      "不露"
+    ],
+    "if_no_answer": "不露脸，用字幕收尾，然后放行",
+    "asked_at": "2026-11-08T08:00:00+08:00",
+    "default_at": "2026-11-09T08:00:00+08:00"
+  },
+  "skipped": [
+    "script"
+  ],
+  "plan_week": "2026-W46",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pending",
+    "note": null,
+    "decided_by": null
+  },
+  "publications": [],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

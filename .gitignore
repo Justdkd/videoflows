@@ -1,0 +1,13 @@
+# 构建产物，由 scripts/build-index.mjs / build-site.mjs 生成，不进仓库
+index.json
+index.archive.json
+index.archive.*.json
+*.tmp
+.DS_Store
+node_modules/
+dist/
+
+# 本地密钥（如 wrangler 的 .dev.vars），永远不进仓库
+.dev.vars
+.env
+.env.*

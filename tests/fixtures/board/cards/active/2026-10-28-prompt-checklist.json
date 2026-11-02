@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-28-prompt-checklist",
+  "no": 5,
+  "short_title": "清单",
+  "title": "写提示词前先过一遍的清单",
+  "conclusion": "先写验收标准再写提示词",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-10-28T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "record",
+  "stage_since": "2026-11-03T10:00:00+08:00",
+  "last_touched": "2026-11-04T20:00:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W45",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": {
+      "score": 2,
+      "why": "观众能带走一套做法"
+    },
+    "evidence": {
+      "score": 2,
+      "why": "有自己的实测截图"
+    },
+    "framework": {
+      "score": 1,
+      "why": "五步写了四步"
+    },
+    "search": {
+      "score": 1,
+      "why": "搜索词有量"
+    },
+    "scored_by": "agent"
+  },
+  "assets": {
+    "script_doc": "https://example.com/doc/checklist",
+    "script_version": "v3",
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pending",
+    "note": null,
+    "decided_by": null
+  },
+  "publications": [],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

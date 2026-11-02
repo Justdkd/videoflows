@@ -1,0 +1,82 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-27-daily-agent",
+  "no": 9,
+  "short_title": "Agent",
+  "title": "一个 agent 的一天做了什么",
+  "conclusion": "让 agent 先写计划再动手",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-10-27T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "data",
+  "stage_since": "2026-11-08T19:00:00+08:00",
+  "last_touched": "2026-11-08T20:05:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W45",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pass",
+    "note": "开头 3 秒节奏可以",
+    "decided_by": "agent"
+  },
+  "publications": [
+    {
+      "platform": "douyin",
+      "url": "https://example.com/douyin/2026-11-08",
+      "post_id": "douyin-11-08",
+      "published_at": "2026-11-08T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [],
+      "douplus": {
+        "decision": null,
+        "amount": null,
+        "ordered_at": null,
+        "top_up": null,
+        "decided_by": null
+      }
+    },
+    {
+      "platform": "xiaohongshu",
+      "url": "https://example.com/xiaohongshu/2026-11-08",
+      "post_id": "xiaohongshu-11-08",
+      "published_at": "2026-11-08T19:30:00+08:00",
+      "title": "发布标题",
+      "samples": [],
+      "douplus": null
+    },
+    {
+      "platform": "x",
+      "url": "https://example.com/x/2026-11-08",
+      "post_id": "x-11-08",
+      "published_at": "2026-11-08T20:00:00+08:00",
+      "title": "发布标题",
+      "samples": [],
+      "douplus": null
+    }
+  ],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

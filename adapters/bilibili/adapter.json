@@ -1,0 +1,22 @@
+{
+  "id": "bilibili",
+  "mode": "browser_readonly",
+  "readonly": true,
+  "needs": [
+    "用户电脑开着",
+    "用户说了「电脑开着，可以读」",
+    "用户自己的 Chrome 已登录 B 站创作中心"
+  ],
+  "steps": "adapters/bilibili/steps.md",
+  "metrics": [
+    "plays",
+    "likes",
+    "comments",
+    "shares",
+    "favorites",
+    "new_followers"
+  ],
+  "play_definition": "播放量",
+  "input": "{card, platform, url, post_id, published_at, point}",
+  "output": "{point, taken_at, source, read_by, metrics, missing}，即 card.schema.json 里 publications[].samples[] 的一项"
+}

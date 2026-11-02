@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>VideoFlows 剪辑室</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="page">
+  <div class="yard" id="yard" data-scene="dark">
+    <canvas id="cv" aria-label="3D 剪辑室，胶片盘按阶段停在 7 个工位"></canvas>
+    <div class="labels" id="labels"></div>
+    <div class="topbar">
+      <a class="brand" href="#" aria-label="VideoFlows 回流水线"><span class="logo" id="logo"></span><b>VideoFlows</b></a>
+      <nav class="nav" id="nav" aria-label="页面"><a href="#" data-nav="home">流水线</a><a href="#pool" data-nav="pool">选题池</a><a href="#review" data-nav="review">复盘</a></nav>
+      <div class="theme" id="theme" role="group" aria-label="主题">
+        <button type="button" data-th="dark" aria-pressed="false"><i style="background:#2b2e35"></i>深色</button>
+        <button type="button" data-th="warm" aria-pressed="false"><i style="background:#b4793f"></i>暖色</button>
+        <button type="button" data-th="system" aria-pressed="true"><i style="background:linear-gradient(135deg,#eceef1 50%,#2b2e35 50%)"></i>跟随系统</button>
+      </div>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+    <main class="pg" id="pg" hidden></main>
+    <div class="fail" id="fail">这台电脑的浏览器打不开 3D 画面，换 Chrome 或 Safari 再试。</div>
+  </div>
+  <p class="hint" id="hint">每条视频是一盘胶片，停在哪个工位就是到了哪一步。点胶片盘或它头上的牌子看这条视频；点地上的站名看这一站的全部视频。Esc 或点空地回总览。按住拖动可以转着看，松手自己回正。</p>
+</div>
+
+<script src="vendor/three/three.min.js"></script>
+<script src="vendor/three/OrbitControls.js"></script>
+<script src="vendor/three/CopyShader.js"></script>
+<script src="vendor/three/HorizontalTiltShiftShader.js"></script>
+<script src="vendor/three/VerticalTiltShiftShader.js"></script>
+<script src="vendor/three/EffectComposer.js"></script>
+<script src="vendor/three/RenderPass.js"></script>
+<script src="vendor/three/ShaderPass.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-20-ai-weekly-report",
+  "no": 10,
+  "short_title": "周报",
+  "title": "用 AI 写周报的正确姿势",
+  "conclusion": "先给 AI 一周的原始记录，别让它编",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-10-20T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "data",
+  "stage_since": "2026-11-05T19:00:00+08:00",
+  "last_touched": "2026-11-06T06:00:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W45",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pass",
+    "note": "开头 3 秒节奏可以",
+    "decided_by": "agent"
+  },
+  "publications": [
+    {
+      "platform": "douyin",
+      "url": "https://example.com/douyin/2026-11-05",
+      "post_id": "douyin-11-05",
+      "published_at": "2026-11-05T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-06T05:10:00+08:00",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 3000,
+            "bounce_2s": 0.45,
+            "completion_5s": 0.23,
+            "avg_watch_ratio": 0.04,
+            "likes": 60,
+            "comments": 3,
+            "shares": 2,
+            "favorites": 36,
+            "new_followers": 4
+          },
+          "missing": []
+        }
+      ],
+      "douplus": {
+        "decision": null,
+        "amount": null,
+        "ordered_at": null,
+        "top_up": null,
+        "decided_by": null
+      }
+    },
+    {
+      "platform": "xiaohongshu",
+      "url": "https://example.com/xiaohongshu/2026-11-05",
+      "post_id": "xiaohongshu-11-05",
+      "published_at": "2026-11-05T19:10:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-06T05:20:00+08:00",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 900,
+            "likes": 40,
+            "comments": 6,
+            "shares": 5,
+            "favorites": 30
+          },
+          "missing": [
+            "new_followers"
+          ]
+        }
+      ],
+      "douplus": null
+    },
+    {
+      "platform": "x",
+      "url": "https://example.com/x/2026-11-05",
+      "post_id": "x-11-05",
+      "published_at": "2026-11-05T19:20:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-06T05:30:00+08:00",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 5200,
+            "likes": 30,
+            "comments": 3,
+            "shares": 4,
+            "favorites": 12,
+            "new_followers": 2
+          },
+          "missing": []
+        }
+      ],
+      "douplus": null
+    },
+    {
+      "platform": "youtube",
+      "url": "https://example.com/youtube/2026-11-05",
+      "post_id": "youtube-11-05",
+      "published_at": "2026-11-05T19:30:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-06T05:40:00+08:00",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 300,
+            "avg_watch_ratio": 0.41,
+            "likes": 12,
+            "comments": 1,
+            "shares": 0,
+            "new_followers": 1
+          },
+          "missing": []
+        }
+      ],
+      "douplus": null
+    },
+    {
+      "platform": "bilibili",
+      "url": "https://example.com/bilibili/2026-11-05",
+      "post_id": "bilibili-11-05",
+      "published_at": "2026-11-05T19:40:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-06T05:50:00+08:00",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 24,
+            "likes": 2,
+            "comments": 0,
+            "shares": 0,
+            "favorites": 1,
+            "new_followers": 0
+          },
+          "missing": []
+        }
+      ],
+      "douplus": null
+    }
+  ],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

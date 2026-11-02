@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "week": "2026-W41",
+  "status": "final",
+  "cards": [
+    "2026-10-06-claude-code-setup"
+  ],
+  "best": {
+    "card": "2026-10-06-claude-code-setup",
+    "why": "收藏率最高"
+  },
+  "worst": {
+    "card": "2026-10-06-claude-code-setup",
+    "why": "2s 跳出最高"
+  },
+  "patterns": [
+    {
+      "text": "开头先给结论的那条 2s 跳出 38%，比另一条低 4 个点",
+      "cards": [
+        "2026-10-06-claude-code-setup"
+      ]
+    }
+  ],
+  "next_week": [
+    "开头 3 秒内先给结论",
+    "标题里放一个数字"
+  ],
+  "archived": [],
+  "updated_at": "2026-11-01T20:00:00+08:00",
+  "written_by": "test-agent"
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review.schema.json",
+  "title": "周复盘",
+  "description": "reviews/<年>-W<周>.json，一周一份。各卡第 3、7 天的数据不抄进来，脚本从卡里读。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "week", "status", "cards", "best", "worst", "patterns", "next_week", "archived", "updated_at", "written_by"],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "week": { "type": "string", "pattern": "^\\d{4}-W(0[1-9]|[1-4]\\d|5[0-3])$", "description": "ISO 周，如 2026-W45；等于文件名。" },
+    "status": { "enum": ["draft", "final"], "description": "agent 写完数据和结论就标 final。" },
+    "cards": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/card_id" }, "description": "本周发布的卡 id" },
+    "best": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/pick" }] },
+    "worst": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/pick" }] },
+    "patterns": {
+      "type": "array", "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string", "minLength": 1, "pattern": "[0-9]", "description": "每条规律必须引用具体数字" },
+          "cards": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/card_id" } }
+        }
+      }
+    },
+    "next_week": {
+      "type": "array", "maxItems": 3, "items": { "type": "string", "minLength": 1 },
+      "description": "下周改什么，1–3 条，会出现在下周选题池顶部；草稿可以先空着 []"
+    },
+    "archived": {
+      "type": "array",
+      "description": "本周 agent 自动归档和合并的卡",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["card", "reason"],
+        "properties": {
+          "card": { "$ref": "#/$defs/card_id" },
+          "reason": { "enum": ["idea_30d", "shelved_60d", "done", "merged"] },
+          "merged_into": { "$ref": "#/$defs/card_id" },
+          "note": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "reason": { "const": "merged" } }, "required": ["reason"] },
+            "then": { "required": ["merged_into"] }
+          }
+        ]
+      }
+    },
+    "updated_at": { "type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2})$" },
+    "written_by": { "type": "string", "minLength": 1, "description": "agent 名" }
+  },
+  "allOf": [
+    {
+      "description": "定稿的复盘必须有最好、最差、至少一条规律和下周改什么",
+      "if": { "properties": { "status": { "const": "final" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "best": { "type": "object" },
+          "worst": { "type": "object" },
+          "patterns": { "minItems": 1 },
+          "next_week": { "minItems": 1 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "card_id": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}-[a-z0-9]+(-[a-z0-9]+)*$" },
+    "pick": {
+      "type": "object", "additionalProperties": false,
+      "required": ["card", "why"],
+      "properties": {
+        "card": { "$ref": "#/$defs/card_id" },
+        "why": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

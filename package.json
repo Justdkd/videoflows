@@ -1,0 +1,11 @@
+{
+  "name": "videoflows",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "check": "node scripts/build-index.mjs --check",
+    "test": "node tests/run.mjs"
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": 2,
+  "timezone": "Asia/Shanghai",
+  "platforms": [
+    {
+      "id": "douyin",
+      "name": "抖音",
+      "required": true,
+      "adapter_mode": "browser_readonly",
+      "play_definition": "播放量"
+    },
+    {
+      "id": "xiaohongshu",
+      "name": "小红书",
+      "required": true,
+      "adapter_mode": "browser_readonly",
+      "play_definition": "观看量"
+    },
+    {
+      "id": "x",
+      "name": "X",
+      "required": true,
+      "adapter_mode": "browser_readonly",
+      "play_definition": "曝光量（impressions），不是视频播放"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "required": false,
+      "adapter_mode": "browser_readonly",
+      "play_definition": "观看次数（views）"
+    },
+    {
+      "id": "bilibili",
+      "name": "B 站",
+      "required": false,
+      "adapter_mode": "browser_readonly",
+      "play_definition": "播放量"
+    }
+  ],
+  "sample_points": {
+    "h10": {
+      "hours": 10,
+      "window": [
+        8,
+        14
+      ],
+      "anchor": "published_at",
+      "description": "发布约 10 小时，DOU+ 首投看这一次"
+    },
+    "d3": {
+      "hours": 72,
+      "window": [
+        60,
+        96
+      ],
+      "anchor": "published_at",
+      "description": "第 3 天"
+    },
+    "d7": {
+      "hours": 168,
+      "window": [
+        156,
+        216
+      ],
+      "anchor": "published_at",
+      "description": "第 7 天"
+    },
+    "douplus_h12": {
+      "hours": 12,
+      "window": [
+        10,
+        16
+      ],
+      "anchor": "douplus_ordered_at",
+      "description": "DOU+ 下单后 12 小时，只对投了的抖音发布，判断要不要加投"
+    }
+  },
+  "scoring": {
+    "max_per_screen": 2,
+    "screens": [
+      {
+        "id": "takeaway",
+        "name": "观众能带走什么",
+        "description": "看完能带走一个可用的方法、清单或判断"
+      },
+      {
+        "id": "evidence",
+        "name": "独家证据",
+        "description": "有自己的实测、截图、数据，别人拿不到"
+      },
+      {
+        "id": "framework",
+        "name": "诊断框架",
+        "description": "场景→症状→原因→代价→证明 五步是否写全"
+      },
+      {
+        "id": "search",
+        "name": "搜索需求",
+        "description": "有人在搜这个词，量大小"
+      }
+    ]
+  },
+  "stuck_days": 3,
+  "archive": {
+    "idea_days": 30,
+    "shelved_days": 60,
+    "upcoming_days": 7
+  },
+  "douplus": {
+    "sample_point": "h10",
+    "top_up_sample_point": "douplus_h12",
+    "thresholds": {
+      "bounce_2s_max": 0.4,
+      "completion_5s_min": 0.33,
+      "avg_watch_ratio_min": 0.08,
+      "favorite_rate_min": 0.01,
+      "comments_min": 5
+    },
+    "first_amount": 100,
+    "first_hours": 24,
+    "goal": "点赞评论",
+    "targeting": "达人相似",
+    "similar_accounts": [],
+    "top_up_amount": 100,
+    "cap_per_video": 200,
+    "top_up_min_improved": 2
+  },
+  "compare": {
+    "baseline_count": 10,
+    "baseline_min": 3,
+    "above": 0.2,
+    "below": 0.2
+  },
+  "similar": {
+    "threshold": 0.3
+  },
+  "today": {
+    "must_deadline_days": 3,
+    "candidate_weekday": 1,
+    "review_weekday": 7
+  },
+  "ask": { "default_hours": 24 }
+}

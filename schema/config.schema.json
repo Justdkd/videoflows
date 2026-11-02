@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "config.schema.json",
+  "title": "全局配置",
+  "description": "config.json。每个阈值的含义写在这里的 description 里，代替注释。比率一律是小数。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "timezone", "platforms", "sample_points", "scoring", "stuck_days", "archive", "douplus", "compare", "similar", "today", "ask", "belt"],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "timezone": { "type": "string", "pattern": "^[A-Za-z_]+(/[A-Za-z0-9_+-]+)+$|^UTC$", "description": "IANA 时区名，算「今天是周几」、索引时间和 ISO 周时用。" },
+    "platforms": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "name", "required", "adapter_mode", "play_definition"],
+        "properties": {
+          "id": { "enum": ["douyin", "xiaohongshu", "x", "youtube", "bilibili"], "description": "等于 adapters/<id>/ 目录名" },
+          "name": { "type": "string", "minLength": 1, "description": "页面显示名" },
+          "required": { "type": "boolean", "description": "true = 每条视频都必须发这个平台并录数据；false = 发了才录" },
+          "adapter_mode": { "enum": ["browser_readonly", "manual", "api"], "description": "v1 全部 browser_readonly" },
+          "play_definition": { "type": "string", "minLength": 1, "description": "这个平台的「播放」口径，汇总时在旁边标注" }
+        }
+      }
+    },
+    "sample_points": {
+      "type": "object", "additionalProperties": false,
+      "required": ["h10", "d3", "d7", "douplus_h12"],
+      "description": "采样点。hours 是目标时刻，window 是算数的时间窗 [开始, 结束]（小时）；超出窗口也录，页面标实际时间。",
+      "properties": {
+        "h10": { "$ref": "#/$defs/sample_point" },
+        "d3": { "$ref": "#/$defs/sample_point" },
+        "d7": { "$ref": "#/$defs/sample_point" },
+        "douplus_h12": { "$ref": "#/$defs/sample_point" }
+      }
+    },
+    "scoring": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_per_screen", "screens"],
+      "properties": {
+        "max_per_screen": { "const": 2, "description": "每道筛 0–2 分，满分 8，不设门槛" },
+        "screens": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["id", "name", "description"],
+            "properties": {
+              "id": { "enum": ["takeaway", "evidence", "framework", "search"] },
+              "name": { "type": "string", "minLength": 1, "description": "页面上的叫法，用大白话" },
+              "description": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "stuck_days": { "type": "integer", "minimum": 1, "description": "制作中（选题到发布）的卡多少天没动算卡住" },
+    "archive": {
+      "type": "object", "additionalProperties": false,
+      "required": ["idea_days", "shelved_days", "upcoming_days"],
+      "properties": {
+        "idea_days": { "type": "integer", "minimum": 1, "description": "灵感创建多少天没升到候选就归档（占位值）" },
+        "shelved_days": { "type": "integer", "minimum": 1, "description": "搁置多少天没恢复就归档（占位值）" },
+        "upcoming_days": { "type": "integer", "minimum": 0, "description": "提前多少天在选题池标「快到归档」" }
+      }
+    },
+    "douplus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sample_point", "top_up_sample_point", "thresholds", "first_amount", "first_hours", "goal", "targeting", "similar_accounts", "top_up_amount", "cap_per_video", "top_up_min_improved"],
+      "description": "DOU+ 只给建议，投不投和金额只有用户能定。",
+      "properties": {
+        "sample_point": { "const": "h10", "description": "首投建议看哪个采样点" },
+        "top_up_sample_point": { "const": "douplus_h12", "description": "加投建议看哪个采样点" },
+        "thresholds": {
+          "type": "object", "additionalProperties": false,
+          "required": ["bounce_2s_max", "completion_5s_min", "avg_watch_ratio_min", "favorite_rate_min", "comments_min"],
+          "properties": {
+            "bounce_2s_max": { "$ref": "#/$defs/ratio", "description": "2 秒跳出率 ≤ 这个值才算过" },
+            "completion_5s_min": { "$ref": "#/$defs/ratio", "description": "5 秒完播率 ≥ 这个值才算过" },
+            "avg_watch_ratio_min": { "$ref": "#/$defs/ratio", "description": "平均播放占比 ≥ 这个值才算过" },
+            "favorite_rate_min": { "$ref": "#/$defs/ratio", "description": "互动项：收藏 ÷ 播放 ≥ 这个值，或评论数 ≥ comments_min，任一满足就过" },
+            "comments_min": { "type": "integer", "minimum": 0, "description": "互动项的评论数门槛" }
+          }
+        },
+        "first_amount": { "type": "number", "exclusiveMinimum": 0, "description": "建议首投金额，元" },
+        "first_hours": { "type": "integer", "minimum": 1, "description": "建议首投时长，小时" },
+        "goal": { "type": "string", "minLength": 1, "description": "建议投放目标" },
+        "targeting": { "type": "string", "minLength": 1, "description": "建议定向方式" },
+        "similar_accounts": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 }, "description": "达人相似定向用的账号名，只写公开账号名" },
+        "top_up_amount": { "type": "number", "exclusiveMinimum": 0, "description": "建议加投金额，元" },
+        "cap_per_video": { "type": "number", "exclusiveMinimum": 0, "description": "单条视频累计投放上限，元" },
+        "top_up_min_improved": { "type": "integer", "minimum": 1, "maximum": 4, "description": "四项里至少几项比 h10 变好才提示加投（跳出变低算好，其余变高算好）" }
+      }
+    },
+    "compare": {
+      "type": "object", "additionalProperties": false,
+      "required": ["baseline_count", "baseline_min", "above", "below"],
+      "properties": {
+        "baseline_count": { "type": "integer", "minimum": 1, "description": "基线取这个平台最近几条发布（同一采样点、不含本条）的中位数" },
+        "baseline_min": { "type": "integer", "minimum": 1, "description": "历史少于几条就显示「基线不足」，不标高低" },
+        "above": { "$ref": "#/$defs/ratio", "description": "比基线高出这个比例以上标「高于平时」（0.2 = 20%）" },
+        "below": { "$ref": "#/$defs/ratio", "description": "比基线低这个比例以上标「低于平时」；跳出率好坏方向相反" }
+      }
+    },
+    "similar": {
+      "type": "object", "additionalProperties": false,
+      "required": ["threshold"],
+      "properties": {
+        "threshold": { "$ref": "#/$defs/ratio", "description": "标题 + 结论的词重合度（中文按相邻两字、英文按单词；共同词数 ÷ 较短一方的词数）不低于它就标「可能重复」" }
+      }
+    },
+    "today": {
+      "type": "object", "additionalProperties": false,
+      "required": ["must_deadline_days", "candidate_weekday", "review_weekday"],
+      "properties": {
+        "must_deadline_days": { "type": "integer", "minimum": 0, "description": "必拍卡距截止不超过几天进 agent 待办，胶片上也显示「后天截止」" },
+        "candidate_weekday": { "type": "integer", "minimum": 1, "maximum": 7, "description": "哪天提示待定的候选（ISO：1 = 周一）" },
+        "review_weekday": { "type": "integer", "minimum": 1, "maximum": 7, "description": "哪天提示本周复盘没定稿（ISO：7 = 周日）" }
+      }
+    },
+    "ask": {
+      "type": "object", "additionalProperties": false,
+      "required": ["default_hours"],
+      "properties": {
+        "default_hours": { "type": "number", "exclusiveMinimum": 0, "description": "agent 问了用户多少小时没回，就按默认做：ask.default_at = asked_at + 这个数" }
+      }
+    },
+    "belt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_on"],
+      "properties": {
+        "max_on": { "type": "integer", "minimum": 1, "description": "首页每个工位带子上最多放几盘，其余进片盒排队" }
+      }
+    }
+  },
+  "$defs": {
+    "ratio": { "type": "number", "minimum": 0, "maximum": 1 },
+    "sample_point": {
+      "type": "object", "additionalProperties": false,
+      "required": ["hours", "window", "anchor", "description"],
+      "properties": {
+        "hours": { "type": "number", "exclusiveMinimum": 0 },
+        "window": { "type": "array", "minItems": 2, "maxItems": 2, "items": { "type": "number", "minimum": 0 } },
+        "anchor": { "enum": ["published_at", "douplus_ordered_at"], "description": "从发布时间还是 DOU+ 下单时间起算" },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

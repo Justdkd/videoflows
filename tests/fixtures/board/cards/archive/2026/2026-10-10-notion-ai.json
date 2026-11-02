@@ -1,0 +1,229 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-10-notion-ai",
+  "no": 12,
+  "short_title": "旧卡",
+  "title": "笔记软件里的 AI 值不值",
+  "conclusion": "样例结论",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-10-12T08:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "reviewed",
+  "stage_since": "2026-10-20T19:00:00Z",
+  "last_touched": "2026-10-20T19:00:00Z",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W42",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pass",
+    "note": "开头 3 秒节奏可以",
+    "decided_by": "agent"
+  },
+  "publications": [
+    {
+      "platform": "douyin",
+      "url": "https://example.com/douyin/2026-10-12",
+      "post_id": "douyin-10-12",
+      "published_at": "2026-10-12T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-10-12T21:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 2000,
+            "bounce_2s": 0.38,
+            "completion_5s": 0.35,
+            "avg_watch_ratio": 0.09,
+            "likes": 50,
+            "comments": 6,
+            "shares": 4,
+            "favorites": 24,
+            "new_followers": 3
+          },
+          "missing": []
+        },
+        {
+          "point": "d3",
+          "taken_at": "2026-10-15T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 6000,
+            "bounce_2s": 0.38,
+            "completion_5s": 0.35,
+            "avg_watch_ratio": 0.09,
+            "likes": 150,
+            "comments": 18,
+            "shares": 12,
+            "favorites": 72,
+            "new_followers": 9
+          },
+          "missing": []
+        },
+        {
+          "point": "d7",
+          "taken_at": "2026-10-19T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 8000,
+            "bounce_2s": 0.38,
+            "completion_5s": 0.35,
+            "avg_watch_ratio": 0.09,
+            "likes": 200,
+            "comments": 24,
+            "shares": 16,
+            "favorites": 96,
+            "new_followers": 12
+          },
+          "missing": []
+        }
+      ],
+      "douplus": {
+        "decision": "skip",
+        "amount": null,
+        "ordered_at": null,
+        "top_up": null,
+        "decided_by": "user"
+      }
+    },
+    {
+      "platform": "xiaohongshu",
+      "url": "https://example.com/xiaohongshu/2026-10-12",
+      "post_id": "xiaohongshu-10-12",
+      "published_at": "2026-10-12T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-10-12T21:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 800,
+            "likes": 20,
+            "comments": 2,
+            "shares": 2,
+            "favorites": 10,
+            "new_followers": 1
+          },
+          "missing": []
+        },
+        {
+          "point": "d3",
+          "taken_at": "2026-10-15T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 2400,
+            "likes": 60,
+            "comments": 7,
+            "shares": 5,
+            "favorites": 29,
+            "new_followers": 4
+          },
+          "missing": []
+        },
+        {
+          "point": "d7",
+          "taken_at": "2026-10-19T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 3200,
+            "likes": 80,
+            "comments": 10,
+            "shares": 6,
+            "favorites": 38,
+            "new_followers": 5
+          },
+          "missing": []
+        }
+      ],
+      "douplus": null
+    },
+    {
+      "platform": "x",
+      "url": "https://example.com/x/2026-10-12",
+      "post_id": "x-10-12",
+      "published_at": "2026-10-12T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-10-12T21:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 4000,
+            "likes": 100,
+            "comments": 12,
+            "shares": 8,
+            "favorites": 48,
+            "new_followers": 6
+          },
+          "missing": []
+        },
+        {
+          "point": "d3",
+          "taken_at": "2026-10-15T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 12000,
+            "likes": 300,
+            "comments": 36,
+            "shares": 24,
+            "favorites": 144,
+            "new_followers": 18
+          },
+          "missing": []
+        },
+        {
+          "point": "d7",
+          "taken_at": "2026-10-19T11:00:00Z",
+          "source": "browser",
+          "read_by": "test-agent",
+          "metrics": {
+            "plays": 16000,
+            "likes": 400,
+            "comments": 48,
+            "shares": 32,
+            "favorites": 192,
+            "new_followers": 24
+          },
+          "missing": []
+        }
+      ],
+      "douplus": null
+    }
+  ],
+  "notes": [],
+  "archived_at": "2026-10-21T15:00:00Z",
+  "archive_reason": "done",
+  "merged_into": null
+}

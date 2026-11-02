@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adapter.schema.json",
+  "title": "平台采集适配器",
+  "description": "adapters/<平台>/adapter.json。只描述怎么读，不写任何账号、密码、cookie 或密钥。输出就是卡里 publications[].samples[] 的一项，用 card.schema.json 校验。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "mode", "needs", "steps", "metrics", "play_definition", "input", "output", "readonly"],
+  "properties": {
+    "id": { "enum": ["douyin", "xiaohongshu", "x", "youtube", "bilibili"], "description": "等于所在目录名和 config.json 里的平台 id" },
+    "mode": { "enum": ["browser_readonly", "manual", "api"], "description": "v1 全部 browser_readonly；manual = 浏览器也读不到，用户口述或截图；api = 以后可选" },
+    "readonly": { "const": true, "description": "适配器只能读，不能在平台后台改任何东西" },
+    "needs": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "string", "minLength": 1,
+        "not": { "pattern": "([Pp]ass(word|wd)|PASSWORD|[Tt]oken|TOKEN|[Cc]ookie|COOKIE|[Ss]ecret|SECRET|[Aa]pi[_ -]?[Kk]ey|API[_ -]?KEY|密码|密钥|口令|验证码)", "description": "needs 只写前提，不能写凭据" }
+      },
+      "description": "运行前提，如「用户电脑开着」；不写账号或密钥"
+    },
+    "steps": { "type": "string", "pattern": "^adapters/[a-z]+/steps\\.md$", "description": "写给 agent 的读取步骤文件，相对仓库根目录" },
+    "metrics": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "enum": ["plays", "bounce_2s", "completion_5s", "avg_watch_ratio", "likes", "comments", "shares", "favorites", "new_followers"] },
+      "description": "这个平台后台能读到的指标。不在这里的指标采样时不写键也不进 missing；在这里但没读到的进 missing。"
+    },
+    "play_definition": { "type": "string", "minLength": 1, "description": "这个平台「播放」指什么" },
+    "input": { "type": "string", "minLength": 1 },
+    "output": { "type": "string", "minLength": 1 }
+  }
+}

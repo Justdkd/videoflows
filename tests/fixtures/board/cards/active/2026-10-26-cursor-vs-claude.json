@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "id": "2026-10-26-cursor-vs-claude",
+  "no": 8,
+  "short_title": "对比",
+  "title": "两个写代码 agent 一周对比",
+  "conclusion": "小改动差不多，大重构差很多",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-10-26T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "publish",
+  "stage_since": "2026-11-08T10:00:00+08:00",
+  "last_touched": "2026-11-08T10:00:00+08:00",
+  "blocked_on": "等周三晚上发，避开周二的大更新",
+  "next_action": {
+    "who": "agent",
+    "text": "周三晚 7 点发三个平台",
+    "sub": null
+  },
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W46",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": null,
+    "evidence": null,
+    "framework": null,
+    "search": null,
+    "scored_by": null
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pass",
+    "note": "开头 3 秒节奏可以",
+    "decided_by": "agent"
+  },
+  "publications": [],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

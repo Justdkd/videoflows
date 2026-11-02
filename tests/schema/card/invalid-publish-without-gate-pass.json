@@ -1,0 +1,110 @@
+{
+  "schema_version": 2,
+  "id": "2026-11-02-sample-topic",
+  "no": 4,
+  "short_title": "样例",
+  "title": "样例选题标题",
+  "conclusion": "一句话结论，拍之前必须写得出",
+  "kind": "ai_talk",
+  "source": "own_use",
+  "tier": "decided",
+  "tier_since": "2026-11-02T09:00:00+08:00",
+  "tier_decided_by": "user",
+  "stage": "data",
+  "stage_since": "2026-11-06T19:00:00+08:00",
+  "last_touched": "2026-11-07T05:10:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": "2026-W45",
+  "deadline": null,
+  "shelved_reason": null,
+  "why": "为什么拍，自由文字",
+  "scores": {
+    "takeaway": {
+      "score": 2,
+      "why": "观众能带走一套选法"
+    },
+    "evidence": {
+      "score": 1,
+      "why": "有自己的实测截图"
+    },
+    "framework": {
+      "score": 2,
+      "why": "场景到证明五步齐"
+    },
+    "search": {
+      "score": 1,
+      "why": "搜索词有量但不大"
+    },
+    "scored_by": "agent"
+  },
+  "assets": {
+    "script_doc": "https://example.com/doc/1",
+    "script_version": "v4.3",
+    "record_version": "v2",
+    "local_project": "~/projects/example",
+    "edit_version": "v2"
+  },
+  "sample_gate": {
+    "result": "pending",
+    "note": "开头节奏可以",
+    "decided_by": null
+  },
+  "publications": [
+    {
+      "platform": "douyin",
+      "url": "https://example.com/v/1",
+      "post_id": "1",
+      "published_at": "2026-11-06T19:00:00+08:00",
+      "title": "发布标题",
+      "samples": [
+        {
+          "point": "h10",
+          "taken_at": "2026-11-07T05:10:00+08:00",
+          "source": "browser",
+          "read_by": "agent",
+          "metrics": {
+            "plays": 3120,
+            "bounce_2s": 0.452,
+            "completion_5s": 0.235,
+            "avg_watch_ratio": 0.0412,
+            "likes": 64,
+            "comments": 3,
+            "shares": 2,
+            "favorites": 37,
+            "new_followers": 4
+          },
+          "missing": []
+        }
+      ],
+      "douplus": {
+        "decision": "skip",
+        "amount": null,
+        "ordered_at": null,
+        "top_up": null,
+        "decided_by": "user"
+      }
+    },
+    {
+      "platform": "x",
+      "url": "https://example.com/x/1",
+      "post_id": "x1",
+      "published_at": "2026-11-06T20:00:00+08:00",
+      "title": null,
+      "samples": [],
+      "douplus": null
+    }
+  ],
+  "notes": [
+    {
+      "at": "2026-11-05T21:30:00+08:00",
+      "by": "agent",
+      "text": "样片没过：开头 3 秒太慢，回到剪辑。"
+    }
+  ],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}

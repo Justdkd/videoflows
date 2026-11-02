@@ -1,0 +1,37 @@
+{
+  "card": {
+    "invalid-must-without-deadline.json": "/deadline",
+    "invalid-shelved-without-reason.json": "/shelved_reason",
+    "invalid-candidate-missing-score.json": "/scores/search",
+    "invalid-score-out-of-range.json": "/scores/takeaway",
+    "invalid-ratio-as-percent.json": "/publications/0/samples/0/metrics/bounce_2s",
+    "invalid-time-without-timezone.json": "/last_touched",
+    "invalid-metric-written-as-zero-string.json": "/publications/0/samples/0/metrics/plays",
+    "invalid-decided-by-agent.json": "/tier_decided_by",
+    "invalid-douplus-decided-by-agent.json": "/publications/0/douplus/decided_by",
+    "invalid-publish-without-gate-pass.json": "/sample_gate/result",
+    "invalid-idea-in-production-stage.json": "/stage",
+    "invalid-unknown-field.json": "/status",
+    "invalid-short-title-too-long.json": "/short_title",
+    "invalid-ask-without-default.json": "/ask",
+    "invalid-ask-question-too-long.json": "/ask",
+    "invalid-next-action-unknown-who.json": "/next_action"
+  },
+  "review": {
+    "invalid-pattern-without-number.json": "/patterns/0/text",
+    "invalid-final-without-next-week.json": "/next_week",
+    "invalid-bad-week.json": "/week",
+    "invalid-merged-without-target.json": "/archived/0"
+  },
+  "config": {
+    "invalid-stuck-days-zero.json": "/stuck_days",
+    "invalid-threshold-as-percent.json": "/douplus/thresholds/bounce_2s_max",
+    "invalid-unknown-platform.json": "/platforms/0/id",
+    "invalid-missing-belt.json": "/belt"
+  },
+  "adapter": {
+    "invalid-credential-in-needs.json": "/needs/1",
+    "invalid-not-readonly.json": "/readonly",
+    "invalid-unknown-metric.json": "/metrics/9"
+  }
+}

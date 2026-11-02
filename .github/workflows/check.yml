@@ -1,0 +1,45 @@
+# 每次 push 和 PR：逐个提交检查阶段流转，再跑全部验收测试，最后试生成一次网站
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: build-index 校验（逐个提交查阶段流转）
+        env:
+          BEFORE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          # push：查这次推上来的提交；pull_request：查 PR 里相对目标分支的提交
+          if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            RANGE="$BEFORE..$SHA"
+          else
+            # 新分支、首次推送或强推后 before 不在历史里：只查最新一个提交
+            RANGE="HEAD~1..HEAD"
+          fi
+          if git rev-parse --verify -q "HEAD~1^{commit}" >/dev/null; then
+            node scripts/build-index.mjs --check --range "$RANGE"
+          else
+            node scripts/build-index.mjs --check
+          fi
+
+      - name: 验收测试
+        run: node tests/run.mjs
+
+      - name: 生成网站（和 Cloudflare Pages 跑同一条命令）
+        run: node scripts/build-site.mjs --out "$RUNNER_TEMP/dist"

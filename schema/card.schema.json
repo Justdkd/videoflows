@@ -1,0 +1,379 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "card.schema.json",
+  "title": "选题卡",
+  "description": "一条视频从灵感到复盘始终是这一个文件：cards/active/<id>.json，归档后挪到 cards/archive/<年>/<id>.json，文件名不变。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "id", "no", "short_title", "title", "conclusion", "kind", "source", "tier", "tier_since", "tier_decided_by",
+    "stage", "stage_since", "last_touched", "blocked_on", "next_action", "ask", "skipped", "plan_week", "deadline", "shelved_reason",
+    "why", "scores", "assets", "sample_gate", "publications", "notes", "archived_at", "archive_reason", "merged_into"
+  ],
+  "properties": {
+    "schema_version": { "const": 2 },
+    "id": { "$ref": "#/$defs/card_id", "description": "创建日期 + 英文短名，小写英文和连字符；等于文件名（不含 .json）。" },
+    "no": { "type": "integer", "minimum": 1, "description": "胶片编号，页面上的 01、02…。建卡时取所有卡（含归档）最大编号 +1，之后不改、不复用。" },
+    "short_title": { "type": "string", "minLength": 1, "maxLength": 6, "description": "胶片头顶牌子上的短名，最多 6 个字，如「饮食」「Agent」。" },
+    "title": { "type": "string", "minLength": 1 },
+    "conclusion": { "type": ["string", "null"], "minLength": 1, "description": "一句话结论，拍之前必须写得出；已定和必拍必填。" },
+    "kind": { "enum": ["ai_talk", "fitness", "other", null], "description": "ai_talk 口播 · fitness 健身 · other 其他；已定和必拍必填。" },
+    "source": { "enum": ["own_use", "trend_douyin", "trend_x", "comment"] },
+    "tier": { "enum": ["idea", "candidate", "decided", "must", "shelved"], "description": "选题池档位。decided 和 must 只有用户能定。" },
+    "tier_since": { "$ref": "#/$defs/datetime", "description": "进入当前档位的时间，归档天数从这里算。" },
+    "tier_decided_by": { "enum": ["user", "agent", null], "description": "谁把卡放进当前档位；decided 和 must 必须是 user。" },
+    "stage": { "$ref": "#/$defs/stage", "description": "制作阶段。只有 tier 是 decided 或 must 时有意义；灵感和候选固定为 topic。" },
+    "stage_since": { "$ref": "#/$defs/datetime", "description": "进入当前阶段的时间；改 stage 就要改它。" },
+    "last_touched": { "$ref": "#/$defs/datetime", "description": "最后一次改这张卡的时间；改任何字段都要更新。" },
+    "blocked_on": { "type": ["string", "null"], "minLength": 1, "description": "不用用户回答的等待，如「等周六球局」。要用户回一句话的写 ask，不写这里。" },
+    "next_action": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["who", "text", "sub"],
+          "properties": {
+            "who": { "enum": ["agent", "user"], "description": "下一步谁做" },
+            "text": { "type": "string", "minLength": 1, "description": "一句话，如「写动作清单和分镜」" },
+            "sub": { "type": ["string", "null"], "minLength": 1, "description": "补充一句，可空" }
+          }
+        }
+      ],
+      "description": "下一步谁做什么；agent 每做完一步就改。没有 ask 时页面显示它。"
+    },
+    "ask": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["question", "context", "options", "if_no_answer", "asked_at", "default_at"],
+          "properties": {
+            "question": { "type": "string", "minLength": 1, "maxLength": 16, "description": "一句话问题，最多 16 个字" },
+            "context": { "type": ["string", "null"], "minLength": 1, "description": "一两句背景，写上 agent 倾向哪个" },
+            "options": {
+              "type": "array", "minItems": 1, "maxItems": 3,
+              "items": {
+                "oneOf": [
+                  { "type": "string", "minLength": 1, "maxLength": 20 },
+                  {
+                    "type": "object", "additionalProperties": false,
+                    "required": ["label", "set"],
+                    "properties": {
+                      "label": { "type": "string", "minLength": 1, "maxLength": 20, "description": "按钮上的字" },
+                      "set": {
+                        "type": "object", "additionalProperties": false,
+                        "description": "用户在网页上点了这个选项，服务器直接把这些字段写进卡（tier 变了会顺带写 tier_since 和 tier_decided_by: user）。值写死，比如截止时间写具体时刻，不写「两周后」",
+                        "properties": {
+                          "tier": { "enum": ["decided", "must", "shelved"] },
+                          "plan_week": { "anyOf": [{ "$ref": "#/$defs/iso_week" }, { "type": "null" }] },
+                          "deadline": { "anyOf": [{ "$ref": "#/$defs/datetime" }, { "type": "null" }] },
+                          "why": { "type": ["string", "null"], "minLength": 1 },
+                          "conclusion": { "type": ["string", "null"], "minLength": 1 },
+                          "kind": { "enum": ["ai_talk", "fitness", "other", null] },
+                          "shelved_reason": { "type": ["string", "null"], "minLength": 1 },
+                          "blocked_on": { "type": ["string", "null"], "minLength": 1 },
+                          "next_action": {
+                            "oneOf": [
+                              { "type": "null" },
+                              {
+                                "type": "object", "additionalProperties": false, "required": ["who", "text", "sub"],
+                                "properties": { "who": { "enum": ["agent", "user"] }, "text": { "type": "string", "minLength": 1 }, "sub": { "type": ["string", "null"], "minLength": 1 } }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "description": "用户可以直接点的 1–3 个选项。只写字的，点了只在 notes 记下用户选了哪个；带 set 的，点了服务器就照 set 改卡，不用等 agent"
+            },
+            "if_no_answer": { "type": "string", "minLength": 1, "description": "用户不回时 agent 默认怎么做" },
+            "asked_at": { "$ref": "#/$defs/datetime" },
+            "default_at": { "$ref": "#/$defs/datetime", "description": "到这个时间用户还没回，agent 就按 if_no_answer 做；默认 asked_at + config.ask.default_hours" }
+          }
+        }
+      ],
+      "description": "agent 拿不准、要用户回一句话时写；一张卡同时只挂一个。定选题和 DOU+ 不写在这里，由脚本生成。"
+    },
+    "skipped": {
+      "type": "array", "uniqueItems": true,
+      "items": { "enum": ["script", "record", "edit", "sample_gate"] },
+      "description": "这张卡跳过的阶段，如健身视频不写文案。"
+    },
+    "plan_week": { "anyOf": [{ "$ref": "#/$defs/iso_week" }, { "type": "null" }], "description": "计划发布周，如 2026-W45；已定必填。" },
+    "deadline": { "anyOf": [{ "$ref": "#/$defs/datetime" }, { "type": "null" }], "description": "外部截止时间；必拍必填。" },
+    "shelved_reason": { "type": ["string", "null"], "minLength": 1, "description": "搁置原因；搁置必填。" },
+    "why": { "type": ["string", "null"], "minLength": 1, "description": "为什么拍；必拍必填（为什么必须赶）。" },
+    "scores": {
+      "type": "object", "additionalProperties": false,
+      "required": ["takeaway", "evidence", "framework", "search", "scored_by"],
+      "properties": {
+        "takeaway": { "$ref": "#/$defs/score", "description": "看完能学到东西" },
+        "evidence": { "$ref": "#/$defs/score", "description": "有自己的真东西" },
+        "framework": { "$ref": "#/$defs/score", "description": "讲得完整：场景→症状→原因→代价→证明" },
+        "search": { "$ref": "#/$defs/score", "description": "有人在搜" },
+        "scored_by": { "enum": ["agent", "user", null], "description": "agent 初评写 agent；用户改过分写 user。" }
+      }
+    },
+    "assets": {
+      "type": "object", "additionalProperties": false,
+      "required": ["script_doc", "script_version", "record_version", "local_project", "edit_version"],
+      "properties": {
+        "script_doc": { "type": ["string", "null"], "format": "uri", "description": "文案分镜文档链接" },
+        "script_version": { "type": ["string", "null"], "minLength": 1 },
+        "record_version": { "type": ["string", "null"], "minLength": 1, "description": "录音稿版本" },
+        "local_project": { "type": ["string", "null"], "minLength": 1, "description": "本地剪辑项目路径" },
+        "edit_version": { "type": ["string", "null"], "minLength": 1 }
+      }
+    },
+    "sample_gate": {
+      "type": "object", "additionalProperties": false,
+      "required": ["result", "note", "decided_by"],
+      "properties": {
+        "result": { "enum": ["pending", "pass", "fail"] },
+        "note": { "type": ["string", "null"], "minLength": 1 },
+        "decided_by": { "enum": ["agent", "user", null] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "result": { "enum": ["pass", "fail"] } }, "required": ["result"] },
+          "then": { "properties": { "decided_by": { "enum": ["agent", "user"] } } }
+        },
+        {
+          "if": { "properties": { "result": { "const": "fail" } }, "required": ["result"] },
+          "then": { "properties": { "note": { "type": "string" } } }
+        }
+      ]
+    },
+    "publications": { "type": "array", "items": { "$ref": "#/$defs/publication" }, "description": "每个平台一条发布记录，同一平台只能一条。" },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["at", "by", "text"],
+        "properties": {
+          "at": { "$ref": "#/$defs/datetime" },
+          "by": { "type": "string", "minLength": 1, "description": "user 或 agent 名" },
+          "text": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "archived_at": { "anyOf": [{ "$ref": "#/$defs/datetime" }, { "type": "null" }] },
+    "archive_reason": { "enum": ["idea_30d", "shelved_60d", "done", "merged", null] },
+    "merged_into": { "anyOf": [{ "$ref": "#/$defs/card_id" }, { "type": "null" }] }
+  },
+  "allOf": [
+    {
+      "description": "tier=must 必须有截止时间和为什么必须赶，且由用户定",
+      "if": { "properties": { "tier": { "const": "must" } }, "required": ["tier"] },
+      "then": {
+        "properties": {
+          "deadline": { "$ref": "#/$defs/datetime" },
+          "why": { "type": "string" },
+          "tier_decided_by": { "const": "user" }
+        }
+      }
+    },
+    {
+      "description": "tier=decided 必须由用户定，并写好结论、类型、计划发布周",
+      "if": { "properties": { "tier": { "const": "decided" } }, "required": ["tier"] },
+      "then": {
+        "properties": {
+          "tier_decided_by": { "const": "user" },
+          "conclusion": { "type": "string" },
+          "kind": { "enum": ["ai_talk", "fitness", "other"] },
+          "plan_week": { "$ref": "#/$defs/iso_week" }
+        }
+      }
+    },
+    {
+      "description": "tier=must 也要有结论和类型",
+      "if": { "properties": { "tier": { "const": "must" } }, "required": ["tier"] },
+      "then": { "properties": { "conclusion": { "type": "string" }, "kind": { "enum": ["ai_talk", "fitness", "other"] } } }
+    },
+    {
+      "description": "tier=shelved 必须写搁置原因",
+      "if": { "properties": { "tier": { "const": "shelved" } }, "required": ["tier"] },
+      "then": { "properties": { "shelved_reason": { "type": "string" } } }
+    },
+    {
+      "description": "tier=candidate 四道筛都要有 0–2 分和理由",
+      "if": { "properties": { "tier": { "const": "candidate" } }, "required": ["tier"] },
+      "then": {
+        "properties": {
+          "scores": {
+            "properties": {
+              "takeaway": { "type": "object" },
+              "evidence": { "type": "object" },
+              "framework": { "type": "object" },
+              "search": { "type": "object" },
+              "scored_by": { "enum": ["agent", "user"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "description": "灵感和候选还没进入制作，stage 固定为 topic",
+      "if": { "properties": { "tier": { "enum": ["idea", "candidate"] } }, "required": ["tier"] },
+      "then": { "properties": { "stage": { "const": "topic" } } }
+    },
+    {
+      "description": "进入发布及之后，样片关卡必须是 pass（除非跳过了样片关卡）",
+      "if": {
+        "properties": { "stage": { "enum": ["publish", "data", "reviewed"] } },
+        "required": ["stage"]
+      },
+      "then": {
+        "anyOf": [
+          { "properties": { "sample_gate": { "properties": { "result": { "const": "pass" } } } } },
+          { "properties": { "skipped": { "type": "array", "not": { "description": "skipped 里没有 sample_gate", "items": { "not": { "const": "sample_gate" } } } } } }
+        ]
+      }
+    },
+    {
+      "description": "进入数据中及之后至少要有一条发布记录",
+      "if": { "properties": { "stage": { "enum": ["data", "reviewed"] } }, "required": ["stage"] },
+      "then": { "properties": { "publications": { "minItems": 1 } } }
+    },
+    {
+      "description": "归档了就要写归档原因",
+      "if": { "properties": { "archived_at": { "type": "string" } }, "required": ["archived_at"] },
+      "then": { "properties": { "archive_reason": { "enum": ["idea_30d", "shelved_60d", "done", "merged"] } } }
+    },
+    {
+      "description": "写了归档原因就要有归档时间",
+      "if": { "properties": { "archive_reason": { "type": "string" } }, "required": ["archive_reason"] },
+      "then": { "properties": { "archived_at": { "$ref": "#/$defs/datetime" } } }
+    },
+    {
+      "description": "合并归档必须写合并到哪张卡",
+      "if": { "properties": { "archive_reason": { "const": "merged" } }, "required": ["archive_reason"] },
+      "then": { "properties": { "merged_into": { "$ref": "#/$defs/card_id" } } }
+    }
+  ],
+  "$defs": {
+    "card_id": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}-[a-z0-9]+(-[a-z0-9]+)*$" },
+    "datetime": {
+      "type": "string", "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?(Z|[+-]\\d{2}:\\d{2})$",
+      "description": "ISO 8601，必须带时区，如 2026-11-06T19:00:00+08:00"
+    },
+    "iso_week": { "type": "string", "pattern": "^\\d{4}-W(0[1-9]|[1-4]\\d|5[0-3])$" },
+    "stage": { "enum": ["topic", "script", "record", "edit", "sample_gate", "publish", "data", "reviewed"] },
+    "platform": { "enum": ["douyin", "xiaohongshu", "x", "youtube", "bilibili"] },
+    "score": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["score", "why"],
+          "properties": {
+            "score": { "enum": [0, 1, 2] },
+            "why": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+    "ratio": { "type": "number", "minimum": 0, "maximum": 1, "description": "比率存小数：45.2% 写 0.452" },
+    "count": { "type": "integer", "minimum": 0 },
+    "metric_name": {
+      "enum": ["plays", "bounce_2s", "completion_5s", "avg_watch_ratio", "likes", "comments", "shares", "favorites", "new_followers"]
+    },
+    "sample": {
+      "type": "object", "additionalProperties": false,
+      "required": ["point", "taken_at", "source", "read_by", "metrics", "missing"],
+      "properties": {
+        "point": { "enum": ["h10", "d3", "d7", "douplus_h12"] },
+        "taken_at": { "$ref": "#/$defs/datetime" },
+        "source": { "enum": ["api", "browser", "manual"] },
+        "read_by": { "type": "string", "minLength": 1, "description": "user 或 agent 名" },
+        "metrics": {
+          "type": "object", "additionalProperties": false,
+          "description": "平台没有或没读到的指标不写这个键，不写 0。",
+          "properties": {
+            "plays": { "$ref": "#/$defs/count" },
+            "bounce_2s": { "$ref": "#/$defs/ratio" },
+            "completion_5s": { "$ref": "#/$defs/ratio" },
+            "avg_watch_ratio": { "$ref": "#/$defs/ratio" },
+            "likes": { "$ref": "#/$defs/count" },
+            "comments": { "$ref": "#/$defs/count" },
+            "shares": { "$ref": "#/$defs/count" },
+            "favorites": { "$ref": "#/$defs/count" },
+            "new_followers": { "$ref": "#/$defs/count" }
+          }
+        },
+        "missing": {
+          "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/metric_name" },
+          "description": "适配器说这个平台有、但这次没读到的指标。agent 用 ask 请用户手动补，用户不回就一直空着，不当 0 算。"
+        }
+      }
+    },
+    "douplus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["decision", "amount", "ordered_at", "top_up", "decided_by"],
+      "description": "只有用户能决定投不投和金额；agent 只在用户明确说了之后照写，decided_by 写 user。",
+      "properties": {
+        "decision": { "enum": ["invest", "skip", null] },
+        "amount": { "type": ["number", "null"], "exclusiveMinimum": 0, "description": "首投金额，元" },
+        "ordered_at": { "anyOf": [{ "$ref": "#/$defs/datetime" }, { "type": "null" }], "description": "用户下单时间；填了之后脚本会排一个 douplus_h12 采样" },
+        "top_up": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object", "additionalProperties": false,
+              "required": ["amount", "ordered_at"],
+              "properties": {
+                "amount": { "type": "number", "exclusiveMinimum": 0 },
+                "ordered_at": { "$ref": "#/$defs/datetime" }
+              }
+            }
+          ]
+        },
+        "decided_by": { "enum": ["user", null] },
+        "top_up_declined_at": { "$ref": "#/$defs/datetime", "description": "可选。用户点了「不加投」的时间；写了脚本就不再问加投" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "decision": { "enum": ["invest", "skip"] } }, "required": ["decision"] },
+          "then": { "properties": { "decided_by": { "const": "user" } } }
+        },
+        {
+          "if": { "properties": { "decision": { "const": "invest" } }, "required": ["decision"] },
+          "then": { "properties": { "amount": { "type": "number" } } }
+        },
+        {
+          "if": { "properties": { "decision": { "enum": ["skip", null] } }, "required": ["decision"] },
+          "then": { "properties": { "amount": { "type": "null" }, "ordered_at": { "type": "null" }, "top_up": { "type": "null" } } }
+        }
+      ]
+    },
+    "publication": {
+      "type": "object", "additionalProperties": false,
+      "required": ["platform", "url", "post_id", "published_at", "title", "samples", "douplus"],
+      "properties": {
+        "platform": { "$ref": "#/$defs/platform" },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "post_id": { "type": ["string", "null"], "minLength": 1 },
+        "published_at": { "$ref": "#/$defs/datetime" },
+        "title": { "type": ["string", "null"], "minLength": 1 },
+        "samples": { "type": "array", "items": { "$ref": "#/$defs/sample" } },
+        "douplus": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/douplus" }], "description": "只有抖音有；其他平台写 null。" }
+      },
+      "allOf": [
+        {
+          "description": "非抖音平台没有 DOU+",
+          "if": { "properties": { "platform": { "not": { "const": "douyin" } } }, "required": ["platform"] },
+          "then": { "properties": { "douplus": { "type": "null" } } }
+        },
+        {
+          "description": "抖音发布记录必须带 douplus 对象",
+          "if": { "properties": { "platform": { "const": "douyin" } }, "required": ["platform"] },
+          "then": { "properties": { "douplus": { "type": "object" } } }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 2,
+  "id": "2026-11-03-ai-bookkeeping-month",
+  "no": 2,
+  "short_title": "记账月",
+  "title": "用 AI 记账工具一个月的实测",
+  "conclusion": "记账 App 不如一张表加一个 AI",
+  "kind": null,
+  "source": "own_use",
+  "tier": "candidate",
+  "tier_since": "2026-11-04T10:00:00+08:00",
+  "tier_decided_by": "agent",
+  "stage": "topic",
+  "stage_since": "2026-11-04T10:00:00+08:00",
+  "last_touched": "2026-11-04T10:00:00+08:00",
+  "blocked_on": null,
+  "next_action": null,
+  "ask": null,
+  "skipped": [],
+  "plan_week": null,
+  "deadline": null,
+  "shelved_reason": null,
+  "why": null,
+  "scores": {
+    "takeaway": {
+      "score": 2,
+      "why": "观众能带走一套做法"
+    },
+    "evidence": {
+      "score": 1,
+      "why": "有自己的实测截图"
+    },
+    "framework": {
+      "score": 1,
+      "why": "五步写了四步"
+    },
+    "search": {
+      "score": 2,
+      "why": "搜索词有量"
+    },
+    "scored_by": "agent"
+  },
+  "assets": {
+    "script_doc": null,
+    "script_version": null,
+    "record_version": null,
+    "local_project": null,
+    "edit_version": null
+  },
+  "sample_gate": {
+    "result": "pending",
+    "note": null,
+    "decided_by": null
+  },
+  "publications": [],
+  "notes": [],
+  "archived_at": null,
+  "archive_reason": null,
+  "merged_into": null
+}
