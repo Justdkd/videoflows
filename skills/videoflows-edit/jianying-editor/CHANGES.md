@@ -1,6 +1,6 @@
 # 和上游相比改了什么
 
-上游：[jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill) 提交 `32c5692`（2026-09-11），MIT。2026-11-06 检查时这个 GitHub 地址返回 404，本目录就是那个提交的副本。内嵌的 pyJianYingDraft 在 `scripts/vendor/pyJianYingDraft/`，Apache-2.0。
+上游：[jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill) 提交 `32c5692`（2026-09-11），MIT。内嵌的 pyJianYingDraft 在 `scripts/vendor/pyJianYingDraft/`，Apache-2.0。
 
 上游的 `scripts/`、`scripts/vendor/`、`data/`、`docs/`、`rules/`、`references/`、`examples/`、`tools/`、`tests/` 原样拷贝（用 `diff -r` 对比过），只有一处例外：`tests/test_wrapper.py` 的 test_18 原本读上游的演示视频 `assets/video.mp4`，这里不带这个视频，改成没有时用 ffmpeg 现场生成 1 秒测试视频，没有 ffmpeg 就跳过。其余改动都在新增的 `scripts/rebuild.py` 里，运行时补丁也不改 vendor 文件。
 
