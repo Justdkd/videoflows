@@ -23,6 +23,10 @@ VideoFlows 是一套从选题到数据复盘的自媒体流水线看板。每条
 | --- | --- | --- |
 | ![视频详情](docs/screenshots/video.png) | ![选题池](docs/screenshots/pool.png) | ![周复盘](docs/screenshots/review.png) |
 
+### Skills：一条视频从选题跑到复盘
+
+`skills/` 里是一套给 AI agent 用的 skill：选题 → 写稿 → 定风格 → 剪映剪辑 → 发布 → 数据复盘。看板管每条视频到哪一步，skill 管每一步怎么做；人只在确认点点头。安装和致谢见 [skills/README.md](skills/README.md)。
+
 ### 本地运行
 
 ```bash
@@ -135,6 +139,10 @@ All screenshots use the `?demo` sample data.
 | Video detail | Topic pool | Weekly review |
 | --- | --- | --- |
 | ![Video detail](docs/screenshots/video.png) | ![Topic pool](docs/screenshots/pool.png) | ![Weekly review](docs/screenshots/review.png) |
+
+### Skills: one video from topic to review
+
+`skills/` holds agent skills that run a video end to end: topic → script → style → JianYing edit → publish → data review. The board tracks where each video is; the skills say how to do each step, and stop for your sign-off at each gate. See [skills/README.md](skills/README.md).
 
 ### Run locally
 

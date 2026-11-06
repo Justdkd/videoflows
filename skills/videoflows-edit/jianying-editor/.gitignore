@@ -1,0 +1,7 @@
+# Python 运行产物和本地环境，不进仓库
+__pycache__/
+__jycache__/
+*.py[cod]
+.venv/
+venv/
+*.log

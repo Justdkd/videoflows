@@ -34,6 +34,7 @@
 | `site/` | 页面代码。只在用户要求改界面时改；改完 `node scripts/build-site.mjs` 能生成、`node tests/run.mjs` 要全过。`site/vendor/` 是第三方库原样拷贝，不改 |
 | `dist/` | 构建产物，不提交（已在 `.gitignore`） |
 | `functions/` | Cloudflare Pages 的服务器函数（`/api/act`）。同 `scripts/`，只在用户要求时改 |
+| `skills/` | 能，但只在用户要求改 skill 时改；`skills/videoflows-edit/jianying-editor/scripts/vendor/pyJianYingDraft/` 是第三方代码，不改 |
 
 卡的 id = 创建日期 + 英文短名，如 `2026-11-02-squat-form`，只用小写英文、数字和连字符，文件名就是 `<id>.json`。归档时换目录不换名。
 
@@ -71,6 +72,8 @@
 2. **DOU+ 投不投、投多少**：`publications[].douplus` 里的 `decision`、`amount`、`ordered_at`、`top_up`，`decided_by` 写 `user`。
 
 其余判断 agent 直接做，不用问：样片过没过、灵感升候选、四道筛打分、搁置、归档、合并、复盘的规律和下周改什么。自己判断的写 `decided_by: "agent"` / `scored_by: "agent"` / `tier_decided_by: "agent"`。
+
+用了 `skills/` 的话，样片过没过由用户点头，除非用户当次说交给 agent（见 `skills/videoflows/SKILL.md`）。
 
 拿不准就**不猜**，在这张卡写 `ask`，它会出现在流水线底部「等你」里，胶片变红：
 
@@ -277,7 +280,7 @@ agent 每次开工 `git pull --rebase` 后看一眼 `git log --oneline -20`：`[
 - 在仓库里写账号、密码、验证码、cookie、token、密钥或任何凭据，包括写进 `notes`、`blocked_on`、适配器说明和提交信息。
 - 自动发布视频或帖子。
 - 自动下 DOU+ 单、加投、续投。
-- 在任何平台后台做只读以外的操作：不点发布、删除、编辑、回复、置顶、推广、投放、充值、改设置、授权。
+- 在任何平台后台做只读以外的操作：不点发布、删除、编辑、回复、置顶、推广、投放、充值、改设置、授权。例外是用户当次明确让 agent 在用户自己的浏览器里填上传页，可以填标题、简介、标签，但不点发布。
 - 手改或提交 `index.json`、`index.archive.json`；为了让校验通过去改 `schema/` 或 `scripts/`。
 
 ## 9. 平台采集
