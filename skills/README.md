@@ -35,7 +35,7 @@
 
 ## 致谢
 
-- 剪映草稿生成：[jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill)（luoluoluo22，MIT），以及它内嵌的 [pyJianYingDraft](https://github.com/GuanYixuan/pyJianYingDraft)（GuanYixuan，Apache-2.0）。本仓库带的是改良版，改动见 `skills/videoflows-edit/jianying-editor/CHANGES.md`。
+- 剪映草稿生成：[jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill)（luoluoluo22，MIT；2026-11 起这个地址打不开，本仓库带的是它 `32c5692` 提交的副本，许可证原文见 `skills/videoflows-edit/jianying-editor/LICENSE`），以及它内嵌的 [pyJianYingDraft](https://github.com/GuanYixuan/pyJianYingDraft)（GuanYixuan，Apache-2.0）。本仓库带的是改良版，改动见 `skills/videoflows-edit/jianying-editor/CHANGES.md`。
 - 去 AI 味：[lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone)（shiujan，CC BY-NC 4.0），外部依赖。
 - 「给剪辑写镜头表」「把意见写成规矩」的做法受 YouTube 频道 Render with me《I Stopped Editing My Videos. Claude Does It Now (Full Workflow)》启发。
 
@@ -62,6 +62,6 @@ Start with `videoflows`: it reads the board, picks the right skill for each card
 
 **Install**: symlink `skills/videoflows*` into `~/.claude/skills/`, copy `skills/videoflows/templates/profile.example.md` to `~/.videoflows/profile.md` and fill it in (keep it private), set up `skills/videoflows-edit/jianying-editor/` per its README, and optionally install [lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) (CC BY-NC 4.0, not bundled).
 
-**Credits**: [jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill) by luoluoluo22 (MIT) and [pyJianYingDraft](https://github.com/GuanYixuan/pyJianYingDraft) by GuanYixuan (Apache-2.0), bundled here in modified form; [lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) by shiujan (CC BY-NC 4.0), external; shot-list and editing-rulebook ideas from the Render with me YouTube channel.
+**Credits**: [jianying-editor-skill](https://github.com/luoluoluo22/jianying-editor-skill) by luoluoluo22 (MIT; the link has been unreachable since 2026-11, the bundled copy is from upstream commit `32c5692` with its LICENSE kept) and [pyJianYingDraft](https://github.com/GuanYixuan/pyJianYingDraft) by GuanYixuan (Apache-2.0), bundled here in modified form; [lieflat-less-ai-tone](https://github.com/larashero3-dotcom/lieflat-less-ai-tone) by shiujan (CC BY-NC 4.0), external; shot-list and editing-rulebook ideas from the Render with me YouTube channel.
 
 **License**: MIT, as the rest of the repo; `skills/videoflows-edit/jianying-editor/scripts/vendor/pyJianYingDraft/` keeps its own Apache-2.0 license.
